@@ -10,14 +10,6 @@ import (
 	"testing"
 )
 
-type testInfoProviderFactory struct {
-	infoProvider DNSInfoProvider
-}
-
-func (infoFactory testInfoProviderFactory) CreateInfoProvider() DNSInfoProvider {
-	return infoFactory.infoProvider
-}
-
 // testDNSInfoProvider is a DNS info-provider used for testing.
 type testDNSInfoProvider struct {
 	getDomainNamesFunc      func() ([]string, error)
