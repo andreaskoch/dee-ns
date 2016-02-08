@@ -76,7 +76,7 @@ func (editor *DNSEditor) CreateSubdomain(domain, subdomain string, timeToLive in
 		Name:  subdomain,
 		Value: ip.String(),
 		Type:  recordType,
-		Ttl:   fmt.Sprintf("%s", timeToLive),
+		Ttl:   fmt.Sprintf("%d", timeToLive),
 	}
 
 	_, createError := editor.client.CreateRecord(domain, changeRecord)
