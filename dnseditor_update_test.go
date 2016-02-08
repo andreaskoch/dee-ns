@@ -28,8 +28,7 @@ func Test_UpdateSubdomain_ParametersInvalid_ErrorIsReturned(t *testing.T) {
 		subdomain string
 		ip        net.IP
 	}{
-		{"example.com", "", net.ParseIP("::1")},
-		{"www", "", net.ParseIP("::1")},
+		{"example.com", " - ", net.ParseIP("::1")},
 		{"", "", net.ParseIP("::1")},
 		{" ", " ", net.ParseIP("::1")},
 		{"example.com", "www", nil},

@@ -37,6 +37,10 @@ func isValidDomain(domain string) bool {
 // isValidSubdomain returns true if the given subdomain name is valid; otherwise false.
 // Note: This is not a real validation. I just want to exclude total garbage.
 func isValidSubdomain(subdomain string) bool {
+	if subdomain == "" {
+		return true
+	}
+
 	if len(subdomain) > 253 {
 		// too long
 		return false

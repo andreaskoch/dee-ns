@@ -27,8 +27,7 @@ func Test_DeleteSubdomain_ParametersInvalid_ErrorIsReturned(t *testing.T) {
 		subdomain  string
 		recordType string
 	}{
-		{"example.com", "", "AAAA"},
-		{"www", "", "AAAA"},
+		{"example.com", " - ", "AAAA"},
 		{"", "", "AAAA"},
 		{" ", " ", "AAAA"},
 		{"example.com", "www", "-AAAA-"},

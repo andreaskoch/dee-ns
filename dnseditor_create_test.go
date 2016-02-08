@@ -29,8 +29,7 @@ func Test_CreateSubdomain_ParametersInvalid_ErrorIsReturned(t *testing.T) {
 		ttl       int
 		ip        net.IP
 	}{
-		{"example.com", "", 600, net.ParseIP("::1")},
-		{"www", "", 600, net.ParseIP("::1")},
+		{"example.com", " - ", 600, net.ParseIP("::1")},
 		{"", "", 600, net.ParseIP("::1")},
 		{" ", " ", 600, net.ParseIP("::1")},
 		{"example.com", "www", 600, nil},

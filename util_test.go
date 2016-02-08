@@ -57,6 +57,7 @@ func Test_isValidSubdomain_GivenTextIsValid_ResultIsTrue(t *testing.T) {
 
 	// arrange
 	inputs := []string{
+		"",
 		"www",
 		"w-w-w",
 		"w.w.w",
