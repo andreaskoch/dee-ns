@@ -121,3 +121,29 @@ func Test_getDNSRecordTypeByIP_IPisIPv4_AIsReturned(t *testing.T) {
 	}
 
 }
+
+func Test_getFormattedDomainName(t *testing.T) {
+	// arrange
+	inputs := []struct {
+		subdomain      string
+		domain         string
+		expectedResult string
+	}{
+		{"", "", ""},
+		{"www", "", ""},
+		{"", "example.com", "example.com"},
+		{"www", "example.com", "www.example.com"},
+	}
+
+	for _, input := range inputs {
+
+		// act
+		result := getFormattedDomainName(input.subdomain, input.domain)
+
+		// assert
+		if result != input.expectedResult {
+			t.Fail()
+			t.Logf("getFormattedDomainName(%q, %q) returned %q but should have returned %q.", input.subdomain, input.domain, result, input.expectedResult)
+		}
+	}
+}

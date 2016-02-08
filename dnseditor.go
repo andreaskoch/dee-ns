@@ -68,7 +68,7 @@ func (editor *DNSEditor) CreateSubdomain(domain, subdomain string, timeToLive in
 	// check if the record already exists
 	recordType := getDNSRecordTypeByIP(ip)
 	if _, err := editor.infoProvider.GetSubdomainRecord(domain, subdomain, recordType); err == nil {
-		return fmt.Errorf("There is already an %q record available for %q", recordType, subdomain)
+		return fmt.Errorf("There is already an %q record available for %q", recordType, getFormattedDomainName(subdomain, domain))
 	}
 
 	// create record
@@ -107,7 +107,7 @@ func (editor *DNSEditor) UpdateSubdomain(domain, subdomain string, ip net.IP) er
 	recordType := getDNSRecordTypeByIP(ip)
 	subdomainRecord, err := editor.infoProvider.GetSubdomainRecord(domain, subdomain, recordType)
 	if err != nil {
-		return fmt.Errorf("No address record of type %q found for %q", recordType, subdomain)
+		return fmt.Errorf("No address record of type %q found for %q", recordType, getFormattedDomainName(subdomain, domain))
 	}
 
 	// check if an update is necessary
@@ -150,7 +150,7 @@ func (editor *DNSEditor) DeleteSubdomain(domain, subdomain string, recordType st
 	// check if the record already exists
 	subdomainRecord, subdomainError := editor.infoProvider.GetSubdomainRecord(domain, subdomain, recordType)
 	if subdomainError != nil {
-		return fmt.Errorf("No address record of type %q found for %q", recordType, subdomain)
+		return fmt.Errorf("No address record of type %q found for %q", recordType, getFormattedDomainName(subdomain, domain))
 	}
 
 	deleteError := editor.client.DestroyRecord(domain, fmt.Sprintf("%d", subdomainRecord.Id))

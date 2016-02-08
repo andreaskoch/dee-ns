@@ -5,6 +5,7 @@
 package deens
 
 import (
+	"fmt"
 	"net"
 	"regexp"
 	"strings"
@@ -69,4 +70,18 @@ func getDNSRecordTypeByIP(ip net.IP) string {
 	}
 
 	return "A"
+}
+
+// getFormattedDomainName returns the formatted domain name for
+// the given subdomain and domain names.
+func getFormattedDomainName(subdomain, domain string) string {
+	if domain == "" {
+		return ""
+	}
+
+	if subdomain == "" {
+		return domain
+	}
+
+	return fmt.Sprintf("%s.%s", subdomain, domain)
 }
