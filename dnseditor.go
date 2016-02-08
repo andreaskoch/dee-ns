@@ -58,7 +58,7 @@ func (editor *DNSEditor) CreateSubdomain(domain, subdomain string, timeToLive in
 	}
 
 	if isValidSubdomain(subdomain) == false {
-		return fmt.Errorf("The domain name is invalid: %q", subdomain)
+		return fmt.Errorf("The subdomain name is invalid: %q", subdomain)
 	}
 
 	if ip == nil {
@@ -96,7 +96,7 @@ func (editor *DNSEditor) UpdateSubdomain(domain, subdomain string, ip net.IP) er
 	}
 
 	if isValidSubdomain(subdomain) == false {
-		return fmt.Errorf("The domain name is invalid: %q", subdomain)
+		return fmt.Errorf("The subdomain name is invalid: %q", subdomain)
 	}
 
 	if ip == nil {
@@ -140,7 +140,7 @@ func (editor *DNSEditor) DeleteSubdomain(domain, subdomain string, recordType st
 	}
 
 	if isValidSubdomain(subdomain) == false {
-		return fmt.Errorf("The domain name is invalid: %q", subdomain)
+		return fmt.Errorf("The subdomain name is invalid: %q", subdomain)
 	}
 
 	if recordType != "AAAA" && recordType != "A" {
