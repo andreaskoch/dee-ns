@@ -49,35 +49,7 @@ func Test_CreateSubdomain_ParametersInvalid_ErrorIsReturned(t *testing.T) {
 	}
 }
 
-// CreateSubdomain should return an error if the given subdomain does not exist.
-func Test_CreateSubdomain_ValidParameters_SubdomainNotFound_ErrorIsReturned(t *testing.T) {
-	// arrange
-	domain := "example.com"
-	subdomain := "www"
-	ttl := 600
-	ip := net.ParseIP("::1")
-
-	infoProvider := &testDNSInfoProvider{
-		getSubdomainRecordFunc: func(domain, subdomain, recordType string) (record dnsimple.Record, err error) {
-			return dnsimple.Record{}, fmt.Errorf("")
-		},
-	}
-
-	editor := DNSEditor{
-		infoProvider: infoProvider,
-	}
-
-	// act
-	err := editor.CreateSubdomain(domain, subdomain, ttl, ip)
-
-	// assert
-	if err == nil {
-		t.Fail()
-		t.Logf("CreateSubdomain(%q, %q, %q, %q) should return an error if the subdomain does not exist.", domain, subdomain, ttl, ip)
-	}
-}
-
-func Test_CreateSubdomain_ValidParameters_SubdomainExists_DNSRecordCreationFails_ErrorIsReturned(t *testing.T) {
+func Test_CreateSubdomain_ValidParameters_SubdomainDoesNotExist_DNSRecordCreationFails_ErrorIsReturned(t *testing.T) {
 	// arrange
 	domain := "example.com"
 	subdomain := "www"
@@ -92,7 +64,7 @@ func Test_CreateSubdomain_ValidParameters_SubdomainExists_DNSRecordCreationFails
 
 	infoProvider := &testDNSInfoProvider{
 		getSubdomainRecordFunc: func(domain, subdomain, recordType string) (record dnsimple.Record, err error) {
-			return dnsimple.Record{}, nil
+			return dnsimple.Record{}, fmt.Errorf("Subdomain %s does not yet exist", subdomain)
 		},
 	}
 
@@ -111,7 +83,7 @@ func Test_CreateSubdomain_ValidParameters_SubdomainExists_DNSRecordCreationFails
 	}
 }
 
-func Test_CreateSubdomain_ValidParameters_SubdomainExists_DNSRecordCreationSucceeds_NoErrorIsReturned(t *testing.T) {
+func Test_CreateSubdomain_ValidParameters_SubdomainDoesNotExist_DNSRecordCreationSucceeds_NoErrorIsReturned(t *testing.T) {
 	// arrange
 	domain := "example.com"
 	subdomain := "www"
@@ -126,7 +98,7 @@ func Test_CreateSubdomain_ValidParameters_SubdomainExists_DNSRecordCreationSucce
 
 	infoProvider := &testDNSInfoProvider{
 		getSubdomainRecordFunc: func(domain, subdomain, recordType string) (record dnsimple.Record, err error) {
-			return dnsimple.Record{}, nil
+			return dnsimple.Record{}, fmt.Errorf("Subdomain %s does not yet exist", subdomain)
 		},
 	}
 

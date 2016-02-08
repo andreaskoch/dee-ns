@@ -67,8 +67,8 @@ func (editor *DNSEditor) CreateSubdomain(domain, subdomain string, timeToLive in
 
 	// check if the record already exists
 	recordType := getDNSRecordTypeByIP(ip)
-	if _, err := editor.infoProvider.GetSubdomainRecord(domain, subdomain, recordType); err != nil {
-		return fmt.Errorf("No address record of type %q found for %q", recordType, subdomain)
+	if _, err := editor.infoProvider.GetSubdomainRecord(domain, subdomain, recordType); err == nil {
+		return fmt.Errorf("There is already an %q record available for %q", recordType, subdomain)
 	}
 
 	// create record
